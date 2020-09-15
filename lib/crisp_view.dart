@@ -19,14 +19,20 @@ String crispEmbedUrl(String websiteId, String locale) {
 class CrispView extends StatefulWidget {
   final Widget loadingWidget;
   final AppBar appBar;
+  final bool clearCookies;
 
   @override
-  _CrispViewState createState() => _CrispViewState();
+  CrispViewState createState() => CrispViewState();
 
-  CrispView({this.loadingWidget, this.appBar});
+  CrispView({
+    Key key,
+    this.loadingWidget,
+    this.appBar,
+    this.clearCookies: false,
+  }) : super(key: key);
 }
 
-class _CrispViewState extends State<CrispView> {
+class CrispViewState extends State<CrispView> {
   final flutterWebViewPlugin = FlutterWebviewPlugin();
   bool browserContextChanged = false;
 
@@ -104,6 +110,7 @@ class _CrispViewState extends State<CrispView> {
       initialChild: widget.loadingWidget,
       withJavascript: true,
       resizeToAvoidBottomInset: true,
+      clearCookies: widget.clearCookies,
     );
   }
 }
